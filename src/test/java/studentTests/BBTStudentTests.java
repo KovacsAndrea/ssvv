@@ -16,8 +16,6 @@ import validation.TemaValidator;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class BBTStudentTests {
     private static final String filenameStudent = "src/test/java/studentTests/TestStudenti.xml";
