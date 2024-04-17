@@ -1,6 +1,7 @@
 package studentTests;
 
 import domain.Student;
+import junit.framework.TestCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
