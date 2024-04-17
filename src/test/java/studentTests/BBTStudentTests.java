@@ -40,24 +40,6 @@ public class BBTStudentTests extends TestCase{
 
     public static Test suite() { return new TestSuite(BBTStudentTests.class); }
 
-    static void SetUpOnce() throws IOException {
-        PrintWriter pw = new PrintWriter(filenameStudent);
-
-        pw.write(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n" +
-                        "<inbox>\n" +
-                        "    <student idStudent=\"1001\">\n" +
-                        "        <nume>Andrada</nume>\n" +
-                        "        <grupa>935</grupa>\n" +
-                        "        <email>andrada@stud.ubb</email>\n" +
-                        "    </student>\n" +
-                        "</inbox>");
-
-        pw.close();
-    }
-
-    public void testAapp() {assertTrue(true);}
-
     public void setUp() throws IOException {
         PrintWriter pw = new PrintWriter(filenameStudent);
 

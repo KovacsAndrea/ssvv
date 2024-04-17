@@ -2,14 +2,17 @@ package temaTests;
 
 import domain.Student;
 import domain.Tema;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import repository.NotaXMLRepo;
 import repository.StudentXMLRepo;
 import repository.TemaXMLRepo;
 import service.Service;
+import studentTests.BBTStudentTests;
 import validation.NotaValidator;
 import validation.StudentValidator;
 import validation.TemaValidator;
@@ -18,14 +21,15 @@ import validation.ValidationException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class WBTTemaTests {
+public class WBTTemaTests extends TestCase {
     private static final String filenameStudent = "src/test/java/studentTests/TestStudenti.xml";
     private static final String filenameTema = "src/test/java/studentTests/TestTeme.xml";
     private static final String filenameNota = "src/test/java/studentTests/TestNote.xml";
 
     private final Service service;
 
-    public WBTTemaTests() {
+    public WBTTemaTests(String testName) {
+        super(testName);
         StudentValidator studentValidator = new StudentValidator();
         TemaValidator temaValidator = new TemaValidator();
 
@@ -36,8 +40,8 @@ public class WBTTemaTests {
         service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
     }
 
-    @BeforeAll
-    static void SetUpOnce() throws IOException {
+    public static Test suite() { return new TestSuite(WBTTemaTests.class); }
+    public void setUp() throws IOException {
         PrintWriter pw = new PrintWriter(filenameStudent);
 
         pw.write(
@@ -49,7 +53,6 @@ public class WBTTemaTests {
                         "        <email>andrada@stud.ubb</email>\n" +
                         "    </student>\n" +
                         "</inbox>");
-
         pw.close();
 
         PrintWriter pw2 = new PrintWriter(filenameTema);
@@ -64,23 +67,6 @@ public class WBTTemaTests {
                 "</inbox>");
         pw2.close();
     }
-
-    @BeforeEach
-    void Setup() throws IOException {
-        PrintWriter pw = new PrintWriter(filenameStudent);
-
-        pw.write(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n" +
-                        "<inbox>\n" +
-                        "    <student idStudent=\"1001\">\n" +
-                        "        <nume>Andrada</nume>\n" +
-                        "        <grupa>935</grupa>\n" +
-                        "        <email>andrada@stud.ubb</email>\n" +
-                        "    </student>\n" +
-                        "</inbox>");
-
-        pw.close();
-    }
     int countTeme(){
         int count = 0;
 
@@ -91,8 +77,9 @@ public class WBTTemaTests {
 
         return count;
     }
-    @Test
-    void NCAInvalidId() {
+
+    public void testNCAInvalidId() {
+        try{this.setUp();} catch (Exception e) { Assertions.fail(e.getMessage());}
         int initialTemaCount = countTeme();
         String id = "", description = "wt";
         int primire = 2, deadline = 4;
@@ -104,11 +91,12 @@ public class WBTTemaTests {
             Assertions.assertEquals("Numar tema invalid!", e.getMessage());
         }
         int temaCount = countTeme();
-        assert initialTemaCount == temaCount;
+        Assertions.assertEquals(initialTemaCount, temaCount);
     }
 
-    @Test
-    void NCAInvalidDescription() {
+
+    public void testNCAInvalidDescription() {
+        try{this.setUp();} catch (Exception e) { Assertions.fail(e.getMessage());}
         int initialTemaCount = countTeme();
         String id = "1", description = "";
         int primire = 3, deadline = 5;
@@ -120,11 +108,12 @@ public class WBTTemaTests {
             Assertions.assertEquals("Descriere invalida!", e.getMessage());
         }
         int temaCount = countTeme();
-        assert initialTemaCount == temaCount;
+        Assertions.assertEquals(initialTemaCount, temaCount);
     }
 
-    @Test
-    void NCAInvalidDeadline() {
+
+    public void testNCAInvalidDeadline() {
+        try{this.setUp();} catch (Exception e) { Assertions.fail(e.getMessage());}
         int initialTemaCount = countTeme();
         String id = "1", description = "wt";
         int primire = 3, deadline = -2;
@@ -136,12 +125,13 @@ public class WBTTemaTests {
             Assertions.assertEquals("Deadlineul trebuie sa fie intre 1-14.", e.getMessage());
         }
         int temaCount = countTeme();
-        assert initialTemaCount == temaCount;
+        Assertions.assertEquals(initialTemaCount, temaCount);
     }
 
 
-    @Test
-    void NCAInvalidPrimire() {
+
+    public void testNCAInvalidPrimire() {
+        try{this.setUp();} catch (Exception e) { Assertions.fail(e.getMessage());}
         int initialTemaCount = countTeme();
         String id = "1", description = "wt";
         int primire = -2, deadline = 7;
@@ -153,11 +143,12 @@ public class WBTTemaTests {
             Assertions.assertEquals("Saptamana primirii trebuie sa fie intre 1-14.", e.getMessage());
         }
         int temaCount = countTeme();
-        assert initialTemaCount == temaCount;
+        Assertions.assertEquals(initialTemaCount, temaCount);
     }
 
-    @Test
-    void PCA() {
+
+    public void testPCA() {
+        try{this.setUp();} catch (Exception e) { Assertions.fail(e.getMessage());}
         int initialTemaCount = countTeme();
         String id = "2", description = "wt";
         int primire = 4, deadline = 7;
@@ -168,11 +159,14 @@ public class WBTTemaTests {
             Assertions.fail(e.getMessage());
         }
         int temaCount = countTeme();
-        assert initialTemaCount == temaCount-1;
+        Assertions.assertEquals(initialTemaCount, 1);
+        Assertions.assertEquals(temaCount, 2);
+        Assertions.assertEquals(initialTemaCount, temaCount-1);
     }
 
-    @Test
-    void NCADuplicateId(){
+
+    public void testNCADuplicateId(){
+        try{this.setUp();} catch (Exception e) { Assertions.fail(e.getMessage());}
         int initialTemaCount = countTeme();
         String id = "1", description = "wt";
         int primire = 4, deadline = 7;
@@ -183,6 +177,6 @@ public class WBTTemaTests {
             Assertions.fail(e.getMessage());
         }
         int temaCount = countTeme();
-        assert initialTemaCount == temaCount;
+        Assertions.assertEquals(initialTemaCount, temaCount);
     }
 }
