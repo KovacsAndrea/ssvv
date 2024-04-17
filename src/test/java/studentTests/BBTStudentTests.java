@@ -1,11 +1,12 @@
 package studentTests;
 
 import domain.Student;
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import repository.NotaXMLRepo;
 import repository.StudentXMLRepo;
 import repository.TemaXMLRepo;
@@ -18,14 +19,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-public class BBTStudentTests {
+public class BBTStudentTests extends TestCase{
     private static final String filenameStudent = "src/test/java/studentTests/TestStudenti.xml";
     private static final String filenameTema = "src/test/java/studentTests/TestTeme.xml";
     private static final String filenameNota = "src/test/java/studentTests/TestNote.xml";
 
     private final Service service;
 
-    public BBTStudentTests() {
+    public BBTStudentTests(String testName) {
+        super(testName);
         StudentValidator studentValidator = new StudentValidator();
         TemaValidator temaValidator = new TemaValidator();
 
@@ -36,7 +38,8 @@ public class BBTStudentTests {
         service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
     }
 
-    @BeforeAll
+    public static Test suite() { return new TestSuite(BBTStudentTests.class); }
+
     static void SetUpOnce() throws IOException {
         PrintWriter pw = new PrintWriter(filenameStudent);
 
@@ -53,8 +56,9 @@ public class BBTStudentTests {
         pw.close();
     }
 
-    @BeforeEach
-    void Setup() throws IOException {
+    public void testAapp() {assertTrue(true);}
+
+    public void setUp() throws IOException {
         PrintWriter pw = new PrintWriter(filenameStudent);
 
         pw.write(
@@ -82,26 +86,31 @@ public class BBTStudentTests {
     }
 
 
-    @Test
-    void TestAddCorrectStudent() {
+
+    public void testAddCorrectStudent() {
+        try{this.setUp();} catch (Exception e) { Assertions.fail(e.getMessage());}
         int initialStudentsC = countStudents();
         Student student = new Student("1002", "Florin", 937, "florin@ymail.com");
         service.addStudent(student);
         int studentsC = countStudents();
-        assert initialStudentsC == studentsC - 1;
+        Assertions.assertEquals(initialStudentsC, 1);
+        Assertions.assertEquals(studentsC, 2);
+        Assertions.assertEquals(initialStudentsC, studentsC -1);
     }
 
-    @Test
-    void TestAddAlreadyExistingIDStudent() {
+
+    public void testAddAlreadyExistingIDStudent() {
+        try{this.setUp();} catch (Exception e) { Assertions.fail(e.getMessage());}
         int initialStudentsC = countStudents();
         Student student = new Student("1001", "Florin", 937, "florin@ymail.com");
         service.addStudent(student);
         int studentsC = countStudents();
-        assert initialStudentsC == studentsC;
+        Assertions.assertEquals(initialStudentsC, studentsC);
     }
 
-    @Test
-    void TestAddEmptyIdStudent() {
+
+    public void testAddEmptyIdStudent() {
+        try{this.setUp();} catch (Exception e) { Assertions.fail(e.getMessage());}
         int initialStudentsC = countStudents();
         Student student = new Student("", "Florin", 937, "florin@ymail.com");
 
@@ -116,8 +125,9 @@ public class BBTStudentTests {
         Assertions.assertEquals(initialStudentsC, studentsC);
     }
 
-    @Test
-    void TestAddSmallerGroupStudent() {
+
+    public void testAddSmallerGroupStudent() {
+        try{this.setUp();} catch (Exception e) { Assertions.fail(e.getMessage());}
         int initialStudentsC = countStudents();
         Student student = new Student("1002", "Florin", 93, "florin@ymail.com");
 
@@ -132,8 +142,9 @@ public class BBTStudentTests {
         Assertions.assertEquals(initialStudentsC, studentsC);
     }
 
-    @Test
-    void TestAddBiggerGroupStudent() {
+
+    public void testAddBiggerGroupStudent() {
+        try{this.setUp();} catch (Exception e) { Assertions.fail(e.getMessage());}
         int initialStudentsC = countStudents();
         Student student = new Student("1002", "Florin", 93756, "florin@ymail.com");
 
@@ -148,8 +159,9 @@ public class BBTStudentTests {
         Assertions.assertEquals(initialStudentsC, studentsC);
     }
 
-    @Test
-    void TestAddEmptyNameStudent() {
+
+    public void testAddEmptyNameStudent() {
+        try{this.setUp();} catch (Exception e) { Assertions.assertEquals("Nume incorect!", e.getMessage());}
         int initialStudentsC = countStudents();
         Student student = new Student("1002", "", 937, "florin@ymail.com");
 
@@ -164,8 +176,9 @@ public class BBTStudentTests {
         Assertions.assertEquals(initialStudentsC, studentsC);
     }
 
-    @Test
-    void TestAddEmptyEmailStudent() {
+
+    public void testAddEmptyEmailStudent() {
+        try{this.setUp();} catch (Exception e) { Assertions.fail(e.getMessage());}
         int initialStudentsC = countStudents();
         Student student = new Student("1002", "Florin", 937, "");
 
@@ -179,8 +192,9 @@ public class BBTStudentTests {
         Assertions.assertEquals(initialStudentsC, studentsC);
     }
 
-    @Test
-    void TestAddFakeEmailStudent() {
+
+    public void testAddFakeEmailStudent() {
+        try{this.setUp();} catch (Exception e) { Assertions.fail(e.getMessage());}
         int initialStudentsC = countStudents();
         Student student = new Student("1002", "Florin", 937, "fakeEmail");
 
