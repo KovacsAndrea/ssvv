@@ -6,7 +6,7 @@
     <property name="java.specification.version" value="11"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="D:\THE_ORGANIZED_STUFF\VVSS\Labs\MavenProject\LabAssiAsseProjectV02\target\test-classes;D:\THE_ORGANIZED_STUFF\VVSS\Labs\MavenProject\LabAssiAsseProjectV02\target\classes;C:\Users\andre\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;"/>
+    <property name="java.class.path" value="D:\THE_ORGANIZED_STUFF\VVSS\Labs\MavenProject\LabAssiAsseProjectV02\target\test-classes;D:\THE_ORGANIZED_STUFF\VVSS\Labs\MavenProject\LabAssiAsseProjectV02\target\classes;C:\Users\andre\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\andre\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\andre\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\andre\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\andre\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;"/>
     <property name="java.vm.vendor" value="Amazon.com Inc."/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -17,9 +17,9 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="C:\Users\andre\.jdks\corretto-11.0.19\bin"/>
-    <property name="sun.java.command" value="C:\Users\andre\AppData\Local\Temp\surefire16717438891929060349\surefirebooter15390872260613256095.jar C:\Users\andre\AppData\Local\Temp\surefire16717438891929060349 2024-04-17T17-23-23_610-jvmRun1 surefire15407740885157356026tmp surefire_09919912701311471683tmp"/>
+    <property name="sun.java.command" value="C:\Users\andre\AppData\Local\Temp\surefire15633842834684201629\surefirebooter14939855670160929109.jar C:\Users\andre\AppData\Local\Temp\surefire15633842834684201629 2024-04-17T17-38-20_774-jvmRun1 surefire7488469562128917387tmp surefire_09862712243368498373tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="D:\THE_ORGANIZED_STUFF\VVSS\Labs\MavenProject\LabAssiAsseProjectV02\target\test-classes;D:\THE_ORGANIZED_STUFF\VVSS\Labs\MavenProject\LabAssiAsseProjectV02\target\classes;C:\Users\andre\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;"/>
+    <property name="surefire.test.class.path" value="D:\THE_ORGANIZED_STUFF\VVSS\Labs\MavenProject\LabAssiAsseProjectV02\target\test-classes;D:\THE_ORGANIZED_STUFF\VVSS\Labs\MavenProject\LabAssiAsseProjectV02\target\classes;C:\Users\andre\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\andre\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\andre\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\andre\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\andre\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\andre"/>
     <property name="user.language" value="en"/>
@@ -33,7 +33,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\andre\AppData\Local\Temp\surefire16717438891929060349\surefirebooter15390872260613256095.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\andre\AppData\Local\Temp\surefire15633842834684201629\surefirebooter14939855670160929109.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="11.0.19+7-LTS"/>
