@@ -1,15 +1,3 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <inbox>
-    <nota>
-        <idStudent>1</idStudent>
-        <idTema>1</idTema>
-        <notaProf>10.0</notaProf>
-        <dataCurenta>2018-10-10</dataCurenta>
-    </nota>
-    <nota>
-        <idStudent>1</idStudent>
-        <idTema>1</idTema>
-        <notaProf>1.5</notaProf>
-        <dataCurenta>2018-10-18</dataCurenta>
-    </nota>
 </inbox>

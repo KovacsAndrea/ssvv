@@ -1,8 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<inbox>
-    <student idStudent="1001">
-        <nume>Andrada</nume>
-        <grupa>935</grupa>
-        <email>andrada@stud.ubb</email>
-    </student>
-</inbox>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><inbox><student idStudent="1002"><nume>Florin</nume><grupa>937</grupa><email>florin@ymail.com</email></student></inbox>
