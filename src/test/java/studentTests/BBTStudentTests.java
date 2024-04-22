@@ -5,8 +5,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import repository.NotaXMLRepo;
 import repository.StudentXMLRepo;
 import repository.TemaXMLRepo;
