@@ -1,4 +1,4 @@
-package IntegrationTesting;
+package integrationTesting;
 
 import domain.Nota;
 import domain.Student;
