@@ -28,7 +28,7 @@ public class BBITesting extends TestCase {
 
     private final Service service;
 
-    public BBITesting(String testName){
+    public BBITesting(String testName) {
         super(testName);
         StudentValidator studentValidator = new StudentValidator();
         TemaValidator temaValidator = new TemaValidator();
