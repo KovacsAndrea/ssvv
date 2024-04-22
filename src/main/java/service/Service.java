@@ -163,6 +163,7 @@ public class Service {
     public double addNota(Nota nota, String feedback){
         notaValidator.validate(nota);
         Student student = studentFileRepository.findOne(nota.getIdStudent());
+        //aici
         Tema tema = temaFileRepository.findOne(nota.getIdTema());
         int predare = calculeazaSPredare(nota.getData());
         if(predare != tema.getDeadline()){

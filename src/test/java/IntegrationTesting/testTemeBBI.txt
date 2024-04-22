@@ -2,7 +2,7 @@
 <inbox>
     <nrTema nrTema="1">
         <descriere>wt</descriere>
-        <deadline>7</deadline>
-        <primire>4</primire>
+        <deadline>2</deadline>
+        <primire>1</primire>
     </nrTema>
 </inbox>

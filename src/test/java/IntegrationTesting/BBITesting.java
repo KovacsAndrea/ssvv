@@ -7,13 +7,10 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import repository.NotaXMLRepo;
 import repository.StudentXMLRepo;
 import repository.TemaXMLRepo;
 import service.Service;
-import temaTests.WBTTemaTests;
 import validation.NotaValidator;
 import validation.StudentValidator;
 import validation.TemaValidator;
@@ -24,9 +21,10 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 
 public class BBITesting extends TestCase {
-    private static final String filenameStudent = "src/test/java/studentTests/TestStudenti.xml";
-    private static final String filenameTema = "src/test/java/studentTests/TestTeme.xml";
-    private static final String filenameNota = "src/test/java/studentTests/TestNote.xml";
+    private static final String filenameStudent = "src/test/java/IntegrationTesting/testStudentiBBI.txt";
+    private static final String filenameTema = "src/test/java/IntegrationTesting/testTemeBBI.txt";
+    private static final String filenameNota = "src/test/java/IntegrationTesting/testNoteBBI.txt";
+
 
     private final Service service;
 
@@ -50,6 +48,11 @@ public class BBITesting extends TestCase {
         pw.write(
                 "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n" +
                         "<inbox>\n" +
+                        "    <student idStudent=\"1001\">\n" +
+                        "        <nume>Andrada</nume>\n" +
+                        "        <grupa>935</grupa>\n" +
+                        "        <email>andrada@stud.ubb</email>\n" +
+                        "    </student>\n" +
                         "</inbox>");
 
         pw.close();
@@ -60,12 +63,17 @@ public class BBITesting extends TestCase {
 
         pw2.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n" +
                 "<inbox>\n" +
+                "    <nrTema nrTema=\"1\">\n" +
+                "        <descriere>wt</descriere>\n" +
+                "        <deadline>2</deadline>\n" +
+                "        <primire>1</primire>\n" +
+                "    </nrTema>\n" +
                 "</inbox>");
         pw2.close();
     }
 
     public void setUpNote() throws IOException {
-        PrintWriter pw2 = new PrintWriter(filenameTema);
+        PrintWriter pw2 = new PrintWriter(filenameNota);
 
         pw2.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n" +
                 "<inbox>\n" +
@@ -111,7 +119,10 @@ public class BBITesting extends TestCase {
         Student student = new Student("1002", "Florin", 937, "florin@ymail.com");
         service.addStudent(student);
         int studentsC = countStudents();
+        Assertions.assertEquals(initialStudentsC, 1);
+        Assertions.assertEquals(studentsC, 2);
         Assertions.assertEquals(initialStudentsC, studentsC -1);
+        try{this.setUpStudent();} catch (Exception e) { Assertions.fail(e.getMessage());}
     }
 
     public void testAddCorrectTema() {
@@ -127,20 +138,100 @@ public class BBITesting extends TestCase {
         }
         int temaCount = countTeme();
         Assertions.assertEquals(initialTemaCount, temaCount-1);
+        try{this.setUpTema();} catch (Exception e) { Assertions.fail(e.getMessage());}
+    }
+
+    public void testAddTemaIntegrationTestingSA(){
+        try{this.setUpTema();} catch (Exception e) { Assertions.fail(e.getMessage());}
+        try{this.setUpStudent();} catch (Exception e) {Assertions.fail(e.getMessage());}
+        int temaC = countTeme();
+        Assertions.assertEquals(temaC, 1);
+        int studentC = countStudents();
+        Assertions.assertEquals(studentC, 1);
+
+        Student student = new Student("1002", "Florin", 937, "florin@ymail.com");
+        service.addStudent(student);
+        int finalStudentC = countStudents();
+        Assertions.assertEquals(finalStudentC, 2);
+
+        Tema tema = new Tema("2", "wt", 7, 4);
+        try{service.addTema(tema);}catch (ValidationException e){ Assertions.fail(e.getMessage()); }
+        int finalTemaC = countTeme();
+        Assertions.assertEquals(finalTemaC, 2);
+
+        try{this.setUpTema();} catch (Exception e) { Assertions.fail(e.getMessage());}
+        try{this.setUpStudent();} catch (Exception e) {Assertions.fail(e.getMessage());}
     }
 
     public void testAddCorrectNota() {
-        try{this.setUpNote();} catch (Exception e) { Assertions.fail(e.getMessage());}
-        int initialNoteC = countNote();
-        Nota nota = new Nota("1", "1001", "2", 10, LocalDate.now());
+        try{this.setUpTema();} catch (Exception e) { Assertions.fail(e.getMessage());}
+        try{this.setUpStudent();} catch (Exception e) {Assertions.fail(e.getMessage());}
+        try{this.setUpNote();} catch (Exception e) {Assertions.fail(e.getMessage());}
+        int temaC = countTeme();
+        Assertions.assertEquals(temaC, 1);
+        int studentC = countStudents();
+        Assertions.assertEquals(studentC, 1);
+        int notaC = countNote();
+        Assertions.assertEquals(notaC, 0);
+        LocalDate date = LocalDate.of(2018, 10, 1);
+        LocalDate oneWeekLater = date.plusWeeks(2);
+        Nota nota = new Nota("1", "1001", "1", 10, oneWeekLater);
+
+        try{
+
+            service.addNota(nota, "good job");
+        }catch (ValidationException e){
+            Assertions.fail(e.getMessage());
+        }
+        int finalNotaC = countNote();
+        Assertions.assertEquals(notaC, 0);
+        Assertions.assertEquals(finalNotaC, 1);
+        Assertions.assertEquals(notaC, finalNotaC-1);
+
+        try{this.setUpTema();} catch (Exception e) { Assertions.fail(e.getMessage());}
+        try{this.setUpStudent();} catch (Exception e) {Assertions.fail(e.getMessage());}
+        try{this.setUpNote();} catch (Exception e) {Assertions.fail(e.getMessage());}
+    }
+
+    public void testAddGradeIntegrationTestingSAG() {
+        try{this.setUpTema();} catch (Exception e) { Assertions.fail(e.getMessage());}
+        try{this.setUpStudent();} catch (Exception e) {Assertions.fail(e.getMessage());}
+        try{this.setUpNote();} catch (Exception e) {Assertions.fail(e.getMessage());}
+        int temaC = countTeme();
+        Assertions.assertEquals(temaC, 1);
+        int studentC = countStudents();
+        Assertions.assertEquals(studentC, 1);
+        int notaC = countNote();
+        Assertions.assertEquals(notaC, 0);
+
+        Student student = new Student("1002", "Florin", 937, "florin@ymail.com");
+        service.addStudent(student);
+        int finalStudentC = countStudents();
+        Assertions.assertEquals(finalStudentC, 2);
+
+        Tema tema = new Tema("2", "wt", 7, 4);
+        try{service.addTema(tema);}catch (ValidationException e){ Assertions.fail(e.getMessage()); }
+        int finalTemaC = countTeme();
+        Assertions.assertEquals(finalTemaC, 2);
+
+
+        LocalDate date = LocalDate.of(2018, 10, 1);
+        LocalDate notaDate = date.plusWeeks(7);
+        Nota nota = new Nota("1", "1002", "2", 10, notaDate);
 
         try{
             service.addNota(nota, "good job");
         }catch (ValidationException e){
             Assertions.fail(e.getMessage());
         }
-        int notaCount = countNote();
-        Assertions.assertEquals(initialNoteC, notaCount);
+        int finalNotaC = countNote();
+        Assertions.assertEquals(notaC, 0);
+        Assertions.assertEquals(finalNotaC, 1);
+        Assertions.assertEquals(notaC, finalNotaC-1);
+
+        try{this.setUpTema();} catch (Exception e) { Assertions.fail(e.getMessage());}
+        try{this.setUpStudent();} catch (Exception e) {Assertions.fail(e.getMessage());}
+        try{this.setUpNote();} catch (Exception e) {Assertions.fail(e.getMessage());}
     }
 
 }
